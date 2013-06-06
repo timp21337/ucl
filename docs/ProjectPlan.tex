@@ -1,0 +1,167 @@
+\documentclass [12pt, a4paper, twoside, titlepage] {article}
+
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{graphicx}% http://ctan.org/pkg/graphicx
+\usepackage{tabularx}
+\usepackage{varwidth}% http://ctan.org/pkg/varwidth
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, footskip=2cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fullpage}
+\usepackage{moreverb}
+\usepackage{alltt}
+\usepackage{boxedminipage}
+\usepackage[usenames,dvipsnames]{color} % Required for specifying custom colors and referring to colors by name
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{placeins}
+\usepackage{sectsty}
+\usepackage{pdfpages}
+\newcommand{\turn}[3][10em]{% \turn[<width>]{<angle>}{<stuff>}
+  \rlap{\rotatebox{#2}{\begin{varwidth}[t]{#1}\bfseries#3\end{varwidth}}}%
+}
+
+
+
+
+\pagestyle{fancy}
+\lfoot{\documentName}
+\cfoot{\thepage\ of \pageref{LastPage} }
+\rfoot{\documentVersion \date{\today}}
+\headheight 20pt
+\headsep 10pt
+
+\raggedbottom
+\hypersetup{colorlinks=true, linkcolor=blue}
+
+
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings} % Required for inserting code snippets
+
+\definecolor{DarkGreen}{rgb}{0.0,0.4,0.0} % Comment color
+\definecolor{highlight}{RGB}{255,251,204} % Code highlight color
+
+\lstdefinestyle{Style1}{ % Define a style for your code snippet, multiple definitions can be made if, for example, you wish to insert multiple code snippets using different programming languages into one document
+language=Perl, % Detects keywords, comments, strings, functions, etc for the language specified
+backgroundcolor=\color{highlight}, % Set the background color for the snippet - useful for highlighting
+basicstyle=\footnotesize\ttfamily, % The default font size and style of the code
+breakatwhitespace=false, % If true, only allows line breaks at white space
+breaklines=true, % Automatic line breaking (prevents code from protruding outside the box)
+captionpos=b, % Sets the caption position: b for bottom; t for top
+commentstyle=\usefont{T1}{pcr}{m}{sl}\color{DarkGreen}, % Style of comments within the code - dark green courier font
+deletekeywords={}, % If you want to delete any keywords from the current language separate them by commas
+%escapeinside={\%}, % This allows you to escape to LaTeX using the character in the bracket
+firstnumber=1, % Line numbers begin at line 1
+frame=single, % Frame around the code box, value can be: none, leftline, topline, bottomline, lines, single, shadowbox
+frameround=tttt, % Rounds the corners of the frame for the top left, top right, bottom left and bottom right positions
+keywordstyle=\color{Blue}\bf, % Functions are bold and blue
+morekeywords={}, % Add any functions no included by default here separated by commas
+numbers=left, % Location of line numbers, can take the values of: none, left, right
+numbersep=10pt, % Distance of line numbers from the code box
+numberstyle=\tiny\color{Gray}, % Style used for line numbers
+rulecolor=\color{black}, % Frame border color
+showstringspaces=false, % Don't put marks in string spaces
+showtabs=false, % Display tabs in the code as lines
+stepnumber=5, % The step distance between line numbers, i.e. how often will lines be numbered
+stringstyle=\color{Purple}, % Strings are purple
+tabsize=2, % Number of spaces per tab in the code
+}
+
+% Create a command to cleanly insert a snippet with the style above anywhere in the document
+% The first argument is the script location/filename and the second is a caption for the listing
+%\newcommand{\insertcode}[3]{\begin{itemize}\item[]\lstlisting[caption=#2,label=#1,style=Style1]{#3}\end{itemize}} 
+
+%----------------------------------------------------------------------------------------
+
+
+
+% To enable reuse the following commands should be used in the body of the document, 
+% rather than the strings they represent
+\newcommand*{\defined}{\textbf}
+\newcommand{\documentVersion}{V 1.29 } % See https://truecolours.nhs.uk/tracker/projects/action/wiki/Requirements/history
+\newcommand{\projectShortProperName}{Action Trial}
+\newcommand{\projectShortName}{action}
+\newcommand{\projectTitle}{Amiloride Clinical Trial in Optic Neuritis}
+\newcommand{\documentTypeTitle}{Requirements}
+\newcommand{\documentName}{\documentTypeTitle \ - \projectShortProperName }
+\newcommand{\authorName}{Tim Pizey}
+\newcommand{\authorEmail}{Tim.Pizey@psych.ox.ac.uk}
+
+
+
+\begin{document}
+\sffamily
+\allsectionsfont{\sffamily}
+
+
+\title{
+{\Huge \documentTypeTitle}
+\\
+\projectShortProperName 
+\\ 
+  {\small \projectTitle }
+}
+
+\author{
+Oxford Cognitive Health and Neurosciences Clinical Trials Unit 
+\\Department of Psychiatry
+\\Oxford University
+\\\authorName
+\\\tt{\authorEmail}
+}
+\date{} % no date
+\maketitle
+\clearpage
+\section{Authorisation}
+\begin{tabular}{|p{2.5cm}|p{3cm}|p{5.5cm}|p{2.5cm}|}
+\hline
+\bf{Role} & \bf{Name} & \bf{Signature}& \bf{Date} \\ 
+\hline
+& & & \\
+Author & \authorName   & & \\
+& & & \\
+Validator & Justin McKee	   & & \\
+& & & \\
+Validator & Christopher Hinds & & \\
+\hline
+\end{tabular}
+\clearpage
+\newpage
+
+\begingroup
+\hypersetup{linkcolor=blue}
+\tableofcontents
+\endgroup
+\newpage
+% generate by downloading from wiki as HTML then running 
+% sed -i 's/\&para;//g' Requirements.html
+% pandoc -f html -t latex Requirements.html  > requirements_from_wiki.tex
+% see Requirements.sh
+\input{requirements_from_wiki.tex}
+
+\begin{thebibliography}{scribe}
+
+
+\bibitem[Issue Tracker]{issue-tracker}
+Redmine Issue Tracker for \projectShortProperName\\
+\url{https://truecolours.nhs.uk/tracker/projects/\projectShortName/}
+
+\bibitem[Requirements]{requirements}
+Requirements on wiki\\
+\href{https://truecolours.nhs.uk/tracker/projects/\projectShortName/wiki/Requirements}
+{Redmine Wiki for \projectShortProperName}
+
+
+\bibitem[Verification Matrix]{verification-matrix}
+Acceptance Test Requirements Verification Matrix\\
+\href{https://truecolours.nhs.uk/tracker/projects/\projectShortName/wiki/Acceptance_Test_Requirements_Verification_Matrix}
+{Redmine Wiki for \projectShortProperName}
+
+\bibitem[Verification and Validation]{v-and-v}
+\href{http://en.wikipedia.org/wiki/Verification_and_validation_(software)}{Verification and Validation}.
+\end{thebibliography}
+\end{document}
