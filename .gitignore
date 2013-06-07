@@ -7,6 +7,9 @@ local_settings.py
 *.aux
 *.log
 *.ps
+*.toc
+*.out
 *.syntx.gz
+*.synctex.gz
 .emacs.desktop
 *~
