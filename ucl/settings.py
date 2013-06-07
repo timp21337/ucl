@@ -1,7 +1,25 @@
+import os
+import sys
+from getpass import getuser
+
+
+PROJECT_ROOT = os.path.dirname(__file__)
+
 # Django settings for ucl project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+
+COVERAGE_RCFILE = '.coveragerc'
+
+JENKINS_TASKS = (
+    'django_jenkins.tasks.run_pylint',
+    'django_jenkins.tasks.with_coverage',
+    'django_jenkins.tasks.django_tests',
+)
+
+
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -21,6 +39,18 @@ DATABASES = {
     }
 }
 
+if getuser() == 'jenkins':
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'database.sqlite',
+    }
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'database.sqlite',
+    }
+
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -29,11 +59,11 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/London'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-gb'
 
 SITE_ID = 1
 
@@ -61,7 +91,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static_root/')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -72,6 +102,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT,'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -83,7 +114,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '8b+bm5w*^65n(l3g(@echb_uua$3u_c567r^kt)(3=$**nj&si'
+SECRET_KEY = '8b+bm5w*^65n(l3g(@echb_uua$3u_c567r^kt)(3=$**nj&sia'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -121,7 +152,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -154,3 +185,12 @@ LOGGING = {
         },
     }
 }
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+if os.getcwd() == "/app":
+    DATABASES['default'] = dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
