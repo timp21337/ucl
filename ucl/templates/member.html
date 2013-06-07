@@ -1,0 +1,107 @@
+{% extends "template.html" %}
+{% block content %}
+<h2>{{ member.role }}</h2>
+<table class="table table-striped" frame='box' bordercolor='green'>
+  <tr>
+      <th width='20%'>Name</th>
+      <td width='30%'>{{ member.first_name }} {{ member.last_name }}</td>
+      <th width='20%'>Status</th>
+      <td width='30%'>{{ member.status }}</td>
+  </tr>
+{% if not member.is_adult %}
+  <tr>
+      <th>DoB</th>
+      <td>{{ member.dob }} </td>
+      <th>Gender</th>
+      <td>{{ member.gender }} </td>
+  </tr>
+{% endif %}
+</table>
+{% if member.is_adult %}
+<table class="table table-striped" frame='box' bordercolor='green'>
+  <tr>
+      <th width='20%'>Expiry</th>
+      <td width='30%'>{{ member.crb_expiry }} / {{ member.membership_expiry }} </td>
+      <th width='20%'>Mobile</th>
+      <td width='30%'>{{ member.mobile }} </td>
+  </tr>
+  <tr>
+      <th>Email</th>
+      <td>{{ member.email }} </td>
+      <th>Landline</th>
+      <td>{{ member.landline }} </td>
+  </tr>
+  <tr>
+      <th>Address</th>
+      <td colspan='3'>{{ member.address }} </td>
+  </tr>
+</table>
+{%  else %}
+<table class="table table-striped" frame='box' bordercolor='green'>
+  <tr>
+      <th width='20%'>Carer</th>
+      <td width='30%'>{{ member.carer.first_name }} {{ member.carer.last_name }} </td>
+      <th width='20%'>Mobile</th>
+      <td width='30%'>{{ member.carer.mobile }} </td>
+  </tr>
+  <tr>
+      <th>Email</th>
+      <td>{{ member.carer.email }} </td>
+      <th>Landline</th>
+      <td>{{ member.carer.landline }} </td>
+  </tr>
+  <tr>
+      <th>Address</th>
+      <td colspan='3'>{{ member.carer.address }} </td>
+  </tr>
+</table>
+<table class="table table-striped" frame='box' bordercolor='green'>
+  <tr>
+      <th width='20%'>Carer</th>
+      <td width='30%'>{{ member.carer_2.first_name }} {{ member.carer_2.last_name }} </td>
+      <th width='20%'>Mobile</th>
+      <td width='30%'>{{ member.carer_2.mobile }} </td>
+  </tr>
+</table>
+<table class="table table-striped" frame='box' bordercolor='green'>
+  <tr>
+      <th width='20%'>Backup</th>
+      <td width='30%'>{{ member.backup.first_name }} {{ member.backup.last_name }} </td>
+      <th width='20%'>Mobile</th>
+      <td width='30%'>{{ member.backup.mobile }} </td>
+  </tr>
+</table>
+{% endif %}
+
+
+<table class="table table-striped" frame='box' bordercolor='green'>
+  <tr>
+      <th width='20%'>Doctor</th>
+      <td width='30%'>{{ member.doctor.first_name }} {{ member.doctor.last_name }} </td>
+      <th width='20%'>Phone</th>
+      <td width='30%'>{{ member.doctor.landline }} </td>
+  </tr>
+  <tr>
+      <th>Address</th>
+      <td colspan='3'>{{ member.doctor.address }} </td>
+  </tr>
+</table>
+<table class="table table-striped" frame='box' bordercolor='green'>
+  <tr>
+      <th>Allergies</th>
+      <td colspan='3'>{{ member.allergies }} </td>
+  </tr>
+  <tr>
+      <th>Diet</th>
+      <td colspan='3'>{{ member.diet }} </td>
+  </tr>
+  <tr>
+      <th>Medicines</th>
+      <td colspan='3'>{{ member.medicines }} </td>
+  </tr>
+  <tr>
+      <th>Conditions</th>
+      <td colspan='3'>{{ member.conditions }} </td>
+  </tr>
+</table>
+{% endblock %}

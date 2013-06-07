@@ -1,0 +1,14 @@
+{% extends "template.html" %}
+
+{% block title %} Session {% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form action="session" class="form-horizontal" method="post">
+        {% csrf_token %}
+        {{   SessionChoiceForm }}
+        <div class="form-actions">
+            <input type="submit" name="submit" class="btn btn-primary" value="Go" />
+        </div>
+    </form>
+{% endblock %}

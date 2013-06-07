@@ -1,0 +1,43 @@
+{% extends "template.html" %}
+{% block content %}
+
+<h2>{{ status }} Members</h2>
+<table class="table table-striped" frame='box' bordercolor='green'>
+  <tr>
+      <th>Name</th>
+{% if status == 'Carer' %}
+      <th>Membership</th>
+      <th>CRB</th>
+{% else %}
+      <th>DoB</th>
+      <th>Gender</th>
+{%  endif %}
+  </tr>
+  {% for member in members %}
+  <tr>
+    <th><a href="member?username={{ member.username }}"> {{ member.first_name }} {{ member.last_name }}</a></th>
+{% if member.is_adult %}
+    <td {%  if member.membership_expired_alert == '*' %}
+        style="color:red;"
+        {% endif %}
+    >
+        {{ member.membership_expiry }}
+    </td>
+    <td {%  if member.crb_expired_alert == '*' %}
+        style="color:red;"
+        {% endif %}
+    >
+        {{ member.crb_expiry }}
+    </td>
+{% else %}
+    <td>
+        {{ member.dob }}
+    </td>
+    <td>
+        {{ member.gender }}
+    </td>
+{% endif %}
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
