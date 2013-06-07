@@ -1,6 +1,6 @@
 from django.db.models import signals
 
-import ucl.models as models
+import ucl.models
 
 
 def post_syncdb(signal, sender, app, created_models, **kwargs):
@@ -8,8 +8,8 @@ def post_syncdb(signal, sender, app, created_models, **kwargs):
     # However https://docs.djangoproject.com/en/dev/ref/signals/
     # warns that this should not alter the db as this may clash with flush.
     # only run when our model has been created
-    if (signal == signals.post_syncdb) and (app == models):
-        models.initialise()
+    if (signal == signals.post_syncdb) and (app == ucl.models):
+        ucl.models.initialise()
 
 
 signals.post_syncdb.connect(post_syncdb)
