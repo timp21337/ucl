@@ -7,4 +7,10 @@ if __name__ == "__main__":
 
     from django.core.management import execute_from_command_line
 
+
+    # hack to prevent admin prompt
+    if 'syncdb' in sys.argv:
+        sys.argv.append('--noinput')
+
     execute_from_command_line(sys.argv)
+
