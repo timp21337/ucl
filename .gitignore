@@ -1,5 +1,10 @@
+.idea
 venv
 *.log
 *.pot
 *.pyc
 local_settings.py
+*.aux
+*.log
+*.ps
+*.syntx.gz
