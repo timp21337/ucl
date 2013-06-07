@@ -1,0 +1,15 @@
+/*
+ Used to override anything we don't like in Bootstrap.
+*/
+
+body {
+    margin-left: 1em;
+}
+
+h1 {
+    font-size: 18px;
+}
+h2 {
+    font-size: 16px;
+}
+
