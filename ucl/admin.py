@@ -6,7 +6,8 @@ from models import Collection, CollectionBook
 
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-
+from django.contrib.sites.models import Site
+from django.contrib.auth.models import Group
 
 class MemberInline(admin.StackedInline):
     model = Member
@@ -27,3 +28,7 @@ admin.site.register(CollectionBook)
 admin.site.register(Session)
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
+
+admin.site.unregister(Site)
+admin.site.unregister(Group)
